@@ -20,11 +20,9 @@ data "aws_iam_policy_document" "assume_role_with_oidc" {
     }
 
     condition {
-      content {
-        test     = "StringEquals"
-        variable = "${var.provider_url}:sub"
-        values   = var.oidc_fully_qualified_subjects
-      }
+      test     = "StringEquals"
+      variable = "${var.provider_url}:sub"
+      values   = var.oidc_fully_qualified_subjects
     }
   }
 }
@@ -48,6 +46,6 @@ resource "aws_iam_role_policy_attachment" "custom" {
 
 resource "aws_iam_policy" "incoming_policy" {
   name_prefix = var.role_name
-  description = var.description
+  description = var.role_description
   policy      = var.role_policy_document
 }
