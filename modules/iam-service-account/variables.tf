@@ -21,6 +21,7 @@ variable "role_description" {
   type        = string
   default     = ""
 }
+
 variable "role_path" {
   description = "Path of IAM role"
   type        = string
