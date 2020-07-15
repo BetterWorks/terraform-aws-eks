@@ -1,4 +1,3 @@
-
 variable "provider_url" {
   description = "URL of the OIDC Provider"
   type        = string
