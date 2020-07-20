@@ -16,6 +16,12 @@ variable "memory_threshold" {
   description = "memory percentage threshold for the alerts"
 }
 
+variable "max_failed_nodes" {
+  type        = string
+  default     = 0
+  description = "the number of nodes allowed to fail"
+}
+
 variable "cluster_name" {
   type        = string
   default     = "eks"
