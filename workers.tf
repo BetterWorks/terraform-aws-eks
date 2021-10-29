@@ -288,16 +288,16 @@
 #   type                     = "ingress"
 # }
 
-# resource "aws_iam_role" "workers" {
-#   count                 = var.manage_worker_iam_resources && var.create_eks ? 1 : 0
-#   name_prefix           = var.workers_role_name != "" ? null : aws_eks_cluster.this[0].name
-#   name                  = var.workers_role_name != "" ? var.workers_role_name : null
-#   assume_role_policy    = data.aws_iam_policy_document.workers_assume_role_policy.json
-#   permissions_boundary  = var.permissions_boundary
-#   path                  = var.iam_path
-#   force_detach_policies = true
-#   tags                  = var.tags
-# }
+resource "aws_iam_role" "workers" {
+  count                 = var.manage_worker_iam_resources && var.create_eks ? 1 : 0
+  name_prefix           = var.workers_role_name != "" ? null : aws_eks_cluster.this[0].name
+  name                  = var.workers_role_name != "" ? var.workers_role_name : null
+  assume_role_policy    = data.aws_iam_policy_document.workers_assume_role_policy.json
+  permissions_boundary  = var.permissions_boundary
+  path                  = var.iam_path
+  force_detach_policies = true
+  tags                  = var.tags
+}
 
 # resource "aws_iam_instance_profile" "workers" {
 #   count       = var.manage_worker_iam_resources && var.create_eks ? local.worker_group_count : 0

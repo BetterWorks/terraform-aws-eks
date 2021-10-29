@@ -133,25 +133,25 @@ output "oidc_provider_arn" {
 #   )
 # }
 
-# output "worker_iam_role_name" {
-#   description = "default IAM role name for EKS worker groups"
-#   value = coalescelist(
-#     aws_iam_role.workers.*.name,
-#     data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_name,
-#     data.aws_iam_instance_profile.custom_worker_group_launch_template_iam_instance_profile.*.role_name,
-#     [""]
-#   )[0]
-# }
+output "worker_iam_role_name" {
+  description = "default IAM role name for EKS worker groups"
+  value = coalescelist(
+    aws_iam_role.workers.*.name,
+    data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_name,
+    data.aws_iam_instance_profile.custom_worker_group_launch_template_iam_instance_profile.*.role_name,
+    [""]
+  )[0]
+}
 
-# output "worker_iam_role_arn" {
-#   description = "default IAM role ARN for EKS worker groups"
-#   value = coalescelist(
-#     aws_iam_role.workers.*.arn,
-#     data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_arn,
-#     data.aws_iam_instance_profile.custom_worker_group_launch_template_iam_instance_profile.*.role_arn,
-#     [""]
-#   )[0]
-# }
+output "worker_iam_role_arn" {
+  description = "default IAM role ARN for EKS worker groups"
+  value = coalescelist(
+    aws_iam_role.workers.*.arn,
+    data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_arn,
+    data.aws_iam_instance_profile.custom_worker_group_launch_template_iam_instance_profile.*.role_arn,
+    [""]
+  )[0]
+}
 
 output "node_groups" {
   description = "Outputs from EKS node groups. Map of maps, keyed by var.node_groups keys"
@@ -159,5 +159,5 @@ output "node_groups" {
 }
 
 output "node_group_LTs" {
-  value       = module.node_groups.launch_templates
+  value = module.node_groups.launch_templates
 }
