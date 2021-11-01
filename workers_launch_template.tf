@@ -377,13 +377,13 @@
 #   }
 # }
 
-# resource "aws_iam_instance_profile" "workers_launch_template" {
-#   count       = var.manage_worker_iam_resources && var.create_eks ? local.worker_group_launch_template_count : 0
-#   name_prefix = aws_eks_cluster.this[0].name
-#   role = lookup(
-#     var.worker_groups_launch_template[count.index],
-#     "iam_role_id",
-#     local.default_iam_role_id,
-#   )
-#   path = var.iam_path
-# }
+resource "aws_iam_instance_profile" "workers_launch_template" {
+  count       = var.manage_worker_iam_resources && var.create_eks ? local.worker_group_launch_template_count : 0
+  name_prefix = aws_eks_cluster.this[0].name
+  role = lookup(
+    var.worker_groups_launch_template[count.index],
+    "iam_role_id",
+    local.default_iam_role_id,
+  )
+  path = var.iam_path
+}
