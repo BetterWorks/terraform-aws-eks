@@ -370,3 +370,8 @@ variable "force_update_version" {
   default     = false
 
 }
+variable "pod_max_pids" {
+  default     = "-1"
+  description = "max pids per pod set via kubelet arg https://kubernetes.io/docs/concepts/policy/pid-limiting/"
+  type        = string
+}
