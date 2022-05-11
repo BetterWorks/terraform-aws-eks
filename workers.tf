@@ -80,18 +80,6 @@ resource "aws_iam_role" "workers" {
   tags                  = var.tags
 }
 
-resource "aws_iam_instance_profile" "workers" {
-  count       = var.manage_worker_iam_resources && var.create_eks ? local.worker_group_count : 0
-  name_prefix = aws_eks_cluster.this[0].name
-  role = lookup(
-    var.worker_groups[count.index],
-    "iam_role_id",
-    local.default_iam_role_id,
-  )
-
-  path = var.iam_path
-}
-
 resource "aws_iam_role_policy_attachment" "workers_AmazonEKSWorkerNodePolicy" {
   count      = var.manage_worker_iam_resources && var.create_eks ? 1 : 0
   policy_arn = "arn:aws:iam::aws:policy/AmazonEKSWorkerNodePolicy"

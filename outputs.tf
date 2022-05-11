@@ -71,7 +71,6 @@ output "worker_iam_role_name" {
   description = "default IAM role name for EKS worker groups"
   value = coalescelist(
     aws_iam_role.workers.*.name,
-    data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_name
     [""]
   )[0]
 }
@@ -80,7 +79,6 @@ output "worker_iam_role_arn" {
   description = "default IAM role ARN for EKS worker groups"
   value = coalescelist(
     aws_iam_role.workers.*.arn,
-    data.aws_iam_instance_profile.custom_worker_group_iam_instance_profile.*.role_arn
     [""]
   )[0]
 }
