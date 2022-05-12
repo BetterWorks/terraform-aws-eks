@@ -2,7 +2,7 @@ locals {
   # Merge defaults and per-group values to make code cleaner
   node_groups_expanded = { for k, v in var.node_groups : k => merge(
     {
-      iam_role_arn                  = var.default_iam_role_arn
+      iam_role_arn = var.default_iam_role_arn
     },
     var.node_groups_defaults,
     v,
