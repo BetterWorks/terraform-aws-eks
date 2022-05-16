@@ -21,10 +21,10 @@ resource "aws_eks_node_group" "workers" {
   # These shouldn't be needed as we specify the version
   ami_type        = lookup(each.value, "ami_type", null)
   release_version = lookup(each.value, "ami_release_version", null)
-  # launch_template {
-  #   id      = aws_launch_template.workers[each.key].id
-  #   version = aws_launch_template.workers[each.key].default_version
-  # }
+  launch_template {
+    id      = aws_launch_template.workers[each.key].id
+    version = aws_launch_template.workers[each.key].default_version
+  }
 
   labels = merge(
     lookup(var.node_groups_defaults, "k8s_labels", {}),
