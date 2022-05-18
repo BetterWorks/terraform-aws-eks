@@ -35,3 +35,9 @@ variable "force_update_version" {
   default     = false
 
 }
+
+variable "is_default" {
+  description = "is the default eks cluster"
+  type        = bool
+  default     = true
+}
