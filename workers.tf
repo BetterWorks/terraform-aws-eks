@@ -39,7 +39,7 @@ resource "aws_security_group_rule" "workers_egress_cidr_blocks_internet" {
 resource "aws_security_group_rule" "workers_egress_internet_ports" {
   count             = var.worker_security_group_id == "" && var.create_eks && !var.allow_all_egress ? length(var.egress_ports_allowed) : 0
   description       = "Allow nodes all egress to the Internet on these ports."
-  protocol          = "-1"
+  protocol          = "tcp"
   security_group_id = local.worker_security_group_id
   cidr_blocks       = ["0.0.0.0/0"]
   from_port         = var.egress_ports_allowed[count.index]
@@ -50,7 +50,7 @@ resource "aws_security_group_rule" "workers_egress_internet_ports" {
 resource "aws_security_group_rule" "workers_egress_custom_rules" {
   count             = var.worker_security_group_id == "" && var.create_eks && !var.allow_all_egress ? length(var.egress_custom_allowed) : 0
   description       = "Allow nodes all egress to these custom blocks and ports."
-  protocol          = "-1"
+  protocol          = "tcp"
   security_group_id = local.worker_security_group_id
   cidr_blocks       = var.egress_custom_allowed[count.index].cidr_blocks
   from_port         = var.egress_custom_allowed[count.index].from_port
