@@ -41,7 +41,7 @@ resource "aws_security_group_rule" "workers_egress_internet_ports" {
   description       = "Allow nodes all egress to the Internet on these ports."
   protocol          = "-1"
   security_group_id = local.worker_security_group_id
-  cidr_blocks       = var.egress_cidr_blocks_allowed
+  cidr_blocks       = ["0.0.0.0/0"]
   from_port         = var.egress_ports_allowed[count.index]
   to_port           = var.egress_ports_allowed[count.index]
   type              = "egress"
