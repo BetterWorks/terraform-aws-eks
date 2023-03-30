@@ -17,7 +17,6 @@ locals {
   kubeconfig_name     = var.kubeconfig_name == "" ? "eks_${var.cluster_name}" : var.kubeconfig_name
 
   default_ami_id_linux   = data.aws_ami.eks_worker.id
-  default_ami_id_windows = data.aws_ami.eks_worker_windows.id
 
   # workers_group_defaults = {
   #   name                          = "count.index"               # Name of the worker group. Literal count.index will never be used but if name is not set, the count.index interpolation will be used.
