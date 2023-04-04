@@ -91,3 +91,18 @@ output "node_groups" {
 output "node_group_LTs" {
   value = module.node_groups.launch_templates
 }
+
+output "worker_security_group_id" {
+  description = "security groups for the worker nodes"
+  value       = local.worker_security_group_id
+}
+
+output "worker_iam_arn" {
+  description = "security groups for the worker nodes"
+  value       = join("", aws_iam_role.workers.*.arn)
+}
+
+output "worker_iam_name" {
+  description = "security groups for the worker nodes"
+  value       = join("", aws_iam_role.workers.*.name)
+}
