@@ -414,6 +414,7 @@ variable "egress_custom_allowed" {
   default     = []
 }
 
+# EFS CSI driver variables
 variable "enable_aws_efs_csi_driver_addon" {
   description = "Whether or not to install the ebs driver addon in the cluster"
   type        = bool
@@ -421,7 +422,7 @@ variable "enable_aws_efs_csi_driver_addon" {
 }
 
 variable "aws_efs_csi_driver_version" {
-  description = "Version of the ebs csi driver container to install"
+  description = "Version of the efs csi driver container to install"
   type        = string
 }
 
@@ -432,6 +433,6 @@ variable "aws_efs_csi_driver_resolve_conflicts" {
 }
 
 variable "efs_csi_driver_role_arn" {
-  description = "Role for ebs csi driver needed by the service accounts to perform ondemand volume resizing"
+  description = "Role for efs csi driver needed by the service accounts to perform ondemand volume resizing"
   type        = string
 }
