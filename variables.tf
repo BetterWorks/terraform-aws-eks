@@ -414,7 +414,6 @@ variable "egress_custom_allowed" {
   default     = []
 }
 
-<<<<<<< HEAD
 # EFS CSI driver variables
 variable "enable_aws_efs_csi_driver_addon" {
   description = "Whether or not to install the ebs driver addon in the cluster"
@@ -436,9 +435,8 @@ variable "aws_efs_csi_driver_resolve_conflicts" {
 variable "efs_csi_driver_role_arn" {
   description = "Role for efs csi driver needed by the service accounts to perform ondemand volume resizing"
   type        = string
-=======
+}
 variable "logging_stage" {
   type        = string
   description = "Stage (e.g. `prod`, `dev`, `staging`)"
->>>>>>> d6ef565747eaf8569f00929d5726a72b3e21192f
 }
