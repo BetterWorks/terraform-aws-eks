@@ -143,9 +143,6 @@ variable "coredns_maxreplicas" {
   default     = 10
 }
 
-      minReplicas = var.coredns_
-      maxReplicas = var.coredns_maxreplicas
-
 variable "enable_kube_proxy_addon" {
   description = "Whether or not to install the kube-proxy addon in the cluster"
   type        = bool
