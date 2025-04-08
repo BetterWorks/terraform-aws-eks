@@ -16,11 +16,11 @@ resource "aws_eks_addon" "coredns" {
   resolve_conflicts = var.coredns_resolve_conflicts
   configuration_values = jsonencode({
     replicaCount = 4
-    autoscaling = {
-      enabled = var.coredns_scaling_enabled
-      minReplicas = var.coredns_minreplicas
-      maxReplicas = var.coredns_maxreplicas
-    }
+    # autoScaling = {
+    #   enabled = var.coredns_scaling_enabled
+    #   minReplicas = var.coredns_minreplicas
+    #   maxReplicas = var.coredns_maxreplicas
+    # }
   })
 }
 
