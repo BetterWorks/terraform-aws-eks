@@ -2,7 +2,7 @@ terraform {
   required_version = "~> 1.0"
 
   required_providers {
-    aws        = "~> 5.0"
+    aws        = "5.100.0"
     local      = ">= 1.2"
     null       = ">= 2.1"
     template   = ">= 2.1"
