@@ -47,7 +47,7 @@ resource "aws_eks_cluster" "this" {
     aws_cloudwatch_log_group.this
   ]
 
-  lifecycle = {
+  lifecycle {
     ignore_changes = [vpc_config.subnet_ids]
   }
 }
