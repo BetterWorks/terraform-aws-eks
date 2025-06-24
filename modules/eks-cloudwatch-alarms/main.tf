@@ -1,3 +1,10 @@
+terraform {
+  required_version = ">= 1.0"
+  required_providers {
+    aws  = "~> 5.0"
+  }
+}
+
 data "aws_caller_identity" "default" {
 }
 

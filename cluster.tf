@@ -26,8 +26,6 @@ resource "aws_eks_cluster" "this" {
     public_access_cidrs     = var.cluster_endpoint_public_access_cidrs
   }
 
-
-
   dynamic "encryption_config" {
     for_each = var.encryption ? [1] : []
     content {
@@ -48,6 +46,10 @@ resource "aws_eks_cluster" "this" {
     aws_iam_role_policy_attachment.cluster_AmazonEKSServicePolicy,
     aws_cloudwatch_log_group.this
   ]
+
+  lifecycle {
+    ignore_changes = [vpc_config[0].subnet_ids]
+  }
 }
 
 resource "null_resource" "wait_for_cluster" {
