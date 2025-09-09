@@ -465,3 +465,20 @@ variable "encryption" {
   type        = bool
   default     = false
 }
+
+variable "enable_fsxcsi_addon" {
+  description = "Whether or not to install the fsxcsi addon in the cluster"
+  type        = bool
+  default     = false
+}
+
+variable "fsxcsi_version" {
+  description = "Version of the fsxcsi container to install"
+  type        = string
+}
+
+variable "fsxcsi_resolve_conflicts" {
+  description = "Whether or not to force overwrite of the config. Options: NONE, OVERWRITE"
+  type        = string
+  default     = "NONE"
+}

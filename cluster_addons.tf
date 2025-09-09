@@ -16,7 +16,7 @@ resource "aws_eks_addon" "coredns" {
   resolve_conflicts = var.coredns_resolve_conflicts
   configuration_values = jsonencode({
     autoScaling = {
-      enabled = var.coredns_scaling_enabled
+      enabled     = var.coredns_scaling_enabled
       minReplicas = var.coredns_minreplicas
       maxReplicas = var.coredns_maxreplicas
     }
@@ -67,4 +67,13 @@ resource "aws_eks_addon" "aws_efs_csi_driver" {
   addon_version            = var.aws_efs_csi_driver_version
   resolve_conflicts        = var.aws_efs_csi_driver_resolve_conflicts
   service_account_role_arn = var.efs_csi_driver_role_arn
+}
+
+resource "aws_eks_addon" "fsx_csi" {
+  # while we're upgrading we don't want these to be created until we're on 1.20 cluster
+  count             = var.create_eks && var.enable_fsxcsi_addon ? 1 : 0
+  cluster_name      = aws_eks_cluster.this[0].name
+  addon_name        = "aws-fsx-csi-driver"
+  addon_version     = var.fsxcsi_version
+  resolve_conflicts = var.fsxcsi_resolve_conflicts
 }
