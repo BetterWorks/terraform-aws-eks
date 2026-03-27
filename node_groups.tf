@@ -29,4 +29,5 @@ module "node_groups" {
   create_timeout       = var.node_groups_create_timeout
   update_timeout       = var.node_groups_update_timeout
   delete_timeout       = var.node_groups_delete_timeout
+  node_auto_repair     = var.node_auto_repair
 }

@@ -60,3 +60,9 @@ variable "delete_timeout" {
   default     = "60m"
 
 }
+
+variable "node_auto_repair" {
+  description = "enable node auto repair for managed node groups"
+  type        = bool
+  default     = true
+}

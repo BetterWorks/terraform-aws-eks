@@ -45,7 +45,11 @@ resource "aws_eks_node_group" "workers" {
   )
 
   update_config {
-    max_unavailable_percentage =lookup(each.value, "max_unavailable_percentage", 25) 
+    max_unavailable_percentage =lookup(each.value, "max_unavailable_percentage", 25)
+  }
+
+  node_repair_config {
+    enabled = var.node_auto_repair
   }
   lifecycle {
     create_before_destroy = true

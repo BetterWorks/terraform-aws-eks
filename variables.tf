@@ -411,6 +411,12 @@ variable "node_groups_delete_timeout" {
   default     = "60m"
 
 }
+
+variable "node_auto_repair" {
+  description = "enable node auto repair for managed node groups"
+  type        = bool
+  default     = true
+}
 variable "allow_all_egress" {
   description = "trigger to either allow all egress traffic or a more restrictive set"
   type        = bool
