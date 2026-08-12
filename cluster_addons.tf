@@ -78,5 +78,18 @@ resource "aws_eks_addon" "aws_fsx_csi_driver" {
   resolve_conflicts_on_update = var.aws_fsx_csi_driver_resolve_conflicts
   service_account_role_arn    = module.fsx_csi_irsa[0].iam_role_arn
 
+  # Optional JSON-encoded add-on configuration (e.g. node.nodeSelector / node.tolerations /
+  # resources) so the fsx-csi-node DaemonSet can be restricted to nodes that actually mount
+  # FSx instead of running on every node. Null when unset to preserve prior behavior.
+  configuration_values = var.aws_fsx_csi_driver_configuration_values != "" ? var.aws_fsx_csi_driver_configuration_values : null
+
   tags = var.tags
+}
+
+# Optional configuration values for the aws-fsx-csi-driver add-on.
+# Declared here (rather than variables.tf) to keep this feature self-contained.
+variable "aws_fsx_csi_driver_configuration_values" {
+  description = "JSON-encoded configuration values passed to the aws-fsx-csi-driver EKS add-on. Common use: restrict the fsx-csi-node DaemonSet via node.nodeSelector / node.tolerations. Leave empty to omit configuration_values entirely."
+  type        = string
+  default     = ""
 }
