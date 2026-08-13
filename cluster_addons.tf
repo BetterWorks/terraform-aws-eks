@@ -6,6 +6,8 @@ resource "aws_eks_addon" "vpc_cni" {
   addon_name        = "vpc-cni"
   addon_version     = var.vpc_cni_version
   resolve_conflicts = var.vpc_cni_resolve_conflicts
+
+  configuration_values = var.vpc_cni_configuration_values != "" ? var.vpc_cni_configuration_values : null
 }
 
 resource "aws_eks_addon" "coredns" {
@@ -14,7 +16,8 @@ resource "aws_eks_addon" "coredns" {
   addon_name        = "coredns"
   addon_version     = var.coredns_version
   resolve_conflicts = var.coredns_resolve_conflicts
-  configuration_values = jsonencode({
+  # If an explicit override is provided use it, otherwise keep the computed default below.
+  configuration_values = var.coredns_configuration_values != "" ? var.coredns_configuration_values : jsonencode({
     autoScaling = {
       enabled = var.coredns_scaling_enabled
       minReplicas = var.coredns_minreplicas
@@ -48,6 +51,8 @@ resource "aws_eks_addon" "kube_proxy" {
   addon_name        = "kube-proxy"
   addon_version     = var.kube_proxy_version
   resolve_conflicts = var.kube_proxy_resolve_conflicts
+
+  configuration_values = var.kube_proxy_configuration_values != "" ? var.kube_proxy_configuration_values : null
 }
 
 resource "aws_eks_addon" "aws_ebs_csi_driver" {
@@ -57,6 +62,8 @@ resource "aws_eks_addon" "aws_ebs_csi_driver" {
   addon_version            = var.aws_ebs_csi_driver_version
   resolve_conflicts        = var.aws_ebs_csi_driver_resolve_conflicts
   service_account_role_arn = var.ebs_csi_driver_role_arn
+
+  configuration_values = var.aws_ebs_csi_driver_configuration_values != "" ? var.aws_ebs_csi_driver_configuration_values : null
 }
 
 # EKS EFS CSI ADD-ON Module
@@ -67,6 +74,8 @@ resource "aws_eks_addon" "aws_efs_csi_driver" {
   addon_version            = var.aws_efs_csi_driver_version
   resolve_conflicts        = var.aws_efs_csi_driver_resolve_conflicts
   service_account_role_arn = var.efs_csi_driver_role_arn
+
+  configuration_values = var.aws_efs_csi_driver_configuration_values != "" ? var.aws_efs_csi_driver_configuration_values : null
 }
 
 # EKS FSx CSI ADD-ON Module
@@ -84,6 +93,39 @@ resource "aws_eks_addon" "aws_fsx_csi_driver" {
   configuration_values = var.aws_fsx_csi_driver_configuration_values != "" ? var.aws_fsx_csi_driver_configuration_values : null
 
   tags = var.tags
+}
+
+# Optional JSON-encoded configuration_values for the managed add-ons. Declared here (rather than
+# variables.tf) to keep the addon-config feature self-contained. Each defaults to "" => no change
+# (coredns falls back to its computed default corefile/autoscaling above).
+variable "vpc_cni_configuration_values" {
+  description = "JSON-encoded configuration values for the vpc-cni add-on (e.g. resources / nodeAgent.resources / env). Empty = unset."
+  type        = string
+  default     = ""
+}
+
+variable "coredns_configuration_values" {
+  description = "JSON-encoded configuration values for the coredns add-on. Empty = use the module's computed default (autoscaling + corefile)."
+  type        = string
+  default     = ""
+}
+
+variable "kube_proxy_configuration_values" {
+  description = "JSON-encoded configuration values for the kube-proxy add-on (e.g. resources). Empty = unset."
+  type        = string
+  default     = ""
+}
+
+variable "aws_ebs_csi_driver_configuration_values" {
+  description = "JSON-encoded configuration values for the aws-ebs-csi-driver add-on (e.g. node.resources / controller.resources). Empty = unset."
+  type        = string
+  default     = ""
+}
+
+variable "aws_efs_csi_driver_configuration_values" {
+  description = "JSON-encoded configuration values for the aws-efs-csi-driver add-on (e.g. node.resources / node.nodeSelector). Empty = unset."
+  type        = string
+  default     = ""
 }
 
 # Optional configuration values for the aws-fsx-csi-driver add-on.
