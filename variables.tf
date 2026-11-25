@@ -490,3 +490,9 @@ variable "encryption" {
   type        = bool
   default     = false
 }
+
+variable "create_cluster_log_group" {
+  description = "Manage /aws/eks/<cluster>/cluster. False where EKS created it when logging was enabled outside Terraform."
+  type        = bool
+  default     = true
+}
